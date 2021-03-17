@@ -3,6 +3,7 @@ import java.util.*;
 public class sudokuSolver {
     public LinkedList<Sudoku.Square> squareQueue;
     public Sudoku curSudokuBoard, originalSudokuBoard, tempSudokuBoard;
+    public Sudoku.Square tempSquare;
 
     public sudokuSolver(Sudoku board) {
         this.squareQueue = new LinkedList<Sudoku.Square>();
@@ -87,6 +88,7 @@ public class sudokuSolver {
             Sudoku.Square currentSquare = squareQueue.pop();
 
             if (reviseConstraints(currentSquare)) {
+                //TO-DO: update revised value in board using temp square
                 if (currentSquare.getDomain().size() == 0 && currentSquare.getValue() == 0) { //figure out what we want to use when there is no value
                     return false;
                 }
@@ -103,16 +105,35 @@ public class sudokuSolver {
     private boolean reviseConstraints(Sudoku.Square square) {
         boolean revised = false;
         for (int x: square.getDomain()) {
-            /*
-                if (no b in Dj lets (a, b) satisfy the constraints between Xi and Xj) {
-			        Delete a from Di;			revised = true;		}
-             */
-            //see if square contains value
+            //we are updating the constraints of square if it has values it cannot
+
+            //TO-DO: see if square on board contains value
+
             //see if row contains value
+            if(Arrays.asList(getValues(square.getRow())).contains(x)) {
+                //TO-DO: remove from domain of square
+                revised = true;
+            }
+
             //see if column contains value
+            if(Arrays.asList(getValues(square.getColumn())).contains(x)) {
+                //TO-DO: remove from domain of square
+                revised = true;
+            }
         }
 
+        tempSquare = square;
         return revised;
+    }
+
+    public int[] getValues(Sudoku.Square[] s) {
+        int[] values = new int[s.length];
+
+        for(int i = 0; i < s.length; i++) {
+            values[i] = s[i].getValue();
+        }
+
+        return values;
     }
 
 }

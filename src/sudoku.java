@@ -41,16 +41,21 @@ public class Sudoku {
     public class Square{
         private int value;
         private ArrayList<Integer> domain;
+        private int row, column;
 
         //no domain
-        void Square(int val){
+        void Square(int val, int row, int column){
             value = val;
+            this.row = row;
+            this.column = column;
         }
 
         //with domain
-        void Square(int val, ArrayList<Integer> dom){
+        void Square(int val, ArrayList<Integer> dom, int row, int column){
             domain = dom;
             value = val;
+            this.row = row;
+            this.column = column;
         }
 
         public int getValue() {
@@ -69,21 +74,21 @@ public class Sudoku {
             this.domain = d;
         }
 
-        public Square[] getRow(int r) {
+        public Square[] getRow() {
             Square squares[] = new Square[8];
 
             for(int i = 0; i < 9; i++) {
-                squares[i] = board[r][i];
+                squares[i] = board[row][i];
             }
 
             return squares;
         }
 
-        public Square[] getColumn(int c) {
+        public Square[] getColumn() {
             Square squares[] = new Square[8];
 
             for(int i = 0; i < 9; i++) {
-                squares[i] = board[i][c];
+                squares[i] = board[i][column];
             }
 
             return squares;
