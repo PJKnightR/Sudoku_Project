@@ -2,10 +2,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class sudoku {
-    private square board[][] = new square[9][9];
+public class Sudoku {
+    private Square board[][] = new Square[9][9];
 
-    public void sudoku(String filePath, boolean withDomains) throws FileNotFoundException {
+    public void Sudoku(String filePath, boolean withDomains) throws FileNotFoundException {
         Scanner file = new Scanner(new File(filePath));
 
         if(withDomains) {
@@ -33,7 +33,11 @@ public class sudoku {
 
     }
 
-    private class square{
+    public Square[][] getBoard() {
+        return this.board;
+    }
+
+    public class Square{
         private int value;
         private int[] domain;
 
@@ -46,6 +50,22 @@ public class sudoku {
         void square(int val, int[] dom){
             domain = dom;
             value = val;
+        }
+
+        public int getValue() {
+            return this.value;
+        }
+
+        public void setValue(int v) {
+            this.value = v;
+        }
+
+        public int[] getDomain() {
+            return this.domain;
+        }
+
+        public void setDomain(int[] d) {
+            this.domain = d;
         }
     }
     //get row
