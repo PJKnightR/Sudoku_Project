@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Sudoku {
@@ -39,15 +40,15 @@ public class Sudoku {
 
     public class Square{
         private int value;
-        private int[] domain;
+        private ArrayList<Integer> domain;
 
         //no domain
-        void square(int val){
+        void Square(int val){
             value = val;
         }
 
         //with domain
-        void square(int val, int[] dom){
+        void Square(int val, ArrayList<Integer> dom){
             domain = dom;
             value = val;
         }
@@ -60,12 +61,32 @@ public class Sudoku {
             this.value = v;
         }
 
-        public int[] getDomain() {
+        public ArrayList<Integer> getDomain() {
             return this.domain;
         }
 
-        public void setDomain(int[] d) {
+        public void setDomain(ArrayList<Integer> d) {
             this.domain = d;
+        }
+
+        public Square[] getRow(int r) {
+            Square squares[] = new Square[8];
+
+            for(int i = 0; i < 9; i++) {
+                squares[i] = board[r][i];
+            }
+
+            return squares;
+        }
+
+        public Square[] getColumn(int c) {
+            Square squares[] = new Square[8];
+
+            for(int i = 0; i < 9; i++) {
+                squares[i] = board[i][c];
+            }
+
+            return squares;
         }
     }
     //get row
