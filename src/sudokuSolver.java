@@ -2,52 +2,41 @@ import java.util.*;
 
 public class sudokuSolver {
     public LinkedList<Sudoku.Square> squareQueue;
-    public Sudoku curSudokuBoard, originalSudokuBoard, tempSudokuBoard;
+    public Sudoku curSudokuBoard, tempSudokuBoard;
     public Sudoku.Square tempSquare;
 
     public sudokuSolver(Sudoku board) {
         this.squareQueue = new LinkedList<Sudoku.Square>();
         this.curSudokuBoard = board;
-        this.originalSudokuBoard = board;
     }
 
-    //TO-DO: add the revision for updating a squares value if there is only one in the domain
-    public boolean performAC3(Sudoku board, int curRow, int curColumn, int lastCheckedInFirst, boolean initialSquare) {
-
-        //ensure that the original board is optimized
-        if (initialSquare && lastCheckedInFirst == 1) {
-            ACThree(originalSudokuBoard);
-            originalSudokuBoard = tempSudokuBoard;
-        }
-
-        //find first entry without a set value, ignored if no value
+    public boolean performAC3(Sudoku board, int curRow, int curColumn) {
+        //find first entry without a set value, ignored if there is an assigned value
         while (board.getBoard()[curRow][curColumn].getValue() != 0) {
-            if(curColumn < 8) {
-                curColumn++;
+            //the entry only had one value in its domain. Thus, that is the only value it can have
+            if (board.getBoard()[curRow][curColumn].getDomain().size() == 1) {
+                board.getBoard()[curRow][curColumn].setValue(board.getBoard()[curRow][curColumn].getDomain().get(0));
             } else {
-                curColumn = 0;
-                curRow++;
-            }
+                if(curColumn < 8) {
+                    curColumn++;
+                } else {
+                    curColumn = 0;
+                    curRow++;
+                }
 
-            if(curRow > 8) { //we succeeded, every node has been given a valid value
-                //TO-DO: Print square
-                return true;
+                if(curRow > 8) { //we succeeded, every node has been given a valid value
+                    //TO-DO: Print square
+                    return true;
+                }
             }
-        }
-
-        //for if we have to return to the beginning
-        int currentGuess;
-        if (initialSquare) {
-            currentGuess = lastCheckedInFirst;
-        } else {
-            currentGuess = 1;
         }
 
         //loop through plugging each value into the first entry
-        for(currentGuess = currentGuess; currentGuess < 10; currentGuess++) {
+        for(int currentGuess = 1; currentGuess < 10; currentGuess++) {
             if (Arrays.asList(board.getBoard()[curRow][curColumn].getDomain()).contains(currentGuess)) {
                 board.getBoard()[curRow][curColumn].setValue(currentGuess);
 
+                //if this node succeeds, we continue to the next
                 if(ACThree(board)) {
                     if(curColumn < 8) {
                         curColumn++;
@@ -61,15 +50,16 @@ public class sudokuSolver {
                         return true;
                     }
 
-                    //unsure if we need to go back and check them all or just the first
-                    performAC3(tempSudokuBoard, curRow, curColumn, lastCheckedInFirst, false);
-
-                    //we succeeded, continue to next node with recursive call
-                    /*if (!performAC3(tempSudokuBoard, curRow, curColumn, lastCheckedInFirst, false)) {
-                        //we failed and had to return to the beginning
-                        performAC3(originalSudokuBoard, 0, 0, lastCheckedInFirst + 1, true);
-                    }*/
-
+                    //continue to next node with recursive call
+                    if (!performAC3(tempSudokuBoard, curRow, curColumn)) {
+                        //we failed and have to reset some values
+                        if (curColumn == 0) {
+                            curColumn = 8;
+                            curRow--;
+                        } else {
+                            curColumn--;
+                        }
+                    }
                 }
             }
         }
@@ -81,20 +71,36 @@ public class sudokuSolver {
     //constrain all values, then start plugging in and perform AC3 again
     public boolean ACThree(Sudoku board) {
         //Iterate through cube entries
-        //if we find an entry with only one value in the domain, add its neighbors to queue
-        //if we cannot find a domain of one, look for 2 and so on
 
         while (!squareQueue.isEmpty()) {
             Sudoku.Square currentSquare = squareQueue.pop();
 
             if (reviseConstraints(currentSquare)) {
-                //TO-DO: update revised value in board using temp square
+                currentSquare = tempSquare; //has new constraints
                 if (currentSquare.getDomain().size() == 0 && currentSquare.getValue() == 0) { //figure out what we want to use when there is no value
                     return false;
                 }
-                //add each neighbor to the queue in the square
+
                 //add each neighbor to the queue in the row
+                Sudoku.Square[] addToQueue = currentSquare.getRow();
+
+                for (Sudoku.Square x: addToQueue) {
+                    squareQueue.add(x);
+                }
+
                 //add each neighbor to the queue in the column
+                addToQueue = currentSquare.getColumn();
+
+                for (Sudoku.Square x: addToQueue) {
+                    squareQueue.add(x);
+                }
+
+                //add each neighbor to the queue in the square
+                addToQueue = currentSquare.getSurroundingInSquare();
+
+                for (Sudoku.Square x: addToQueue) {
+                    squareQueue.add(x);
+                }
             }
         }
 
@@ -107,23 +113,28 @@ public class sudokuSolver {
         for (int x: square.getDomain()) {
             //we are updating the constraints of square if it has values it cannot
 
-            //TO-DO: see if square on board contains value
-
-            //see if row contains value
-            if(Arrays.asList(getValues(square.getRow())).contains(x)) {
-                //TO-DO: remove from domain of square
-                revised = true;
-            }
-
-            //see if column contains value
-            if(Arrays.asList(getValues(square.getColumn())).contains(x)) {
-                //TO-DO: remove from domain of square
+            //see if row or column or 3x3 square contains value
+            if(Arrays.asList(getValues(square.getRow())).contains(x)
+                    || Arrays.asList(getValues(square.getColumn())).contains(x)
+                    || Arrays.asList(getValues(square.getSurroundingInSquare())).contains(x)) {
+                square = removeFromDomain(square, x);
                 revised = true;
             }
         }
 
         tempSquare = square;
         return revised;
+    }
+
+    public Sudoku.Square removeFromDomain(Sudoku.Square square, int val) {
+        for (int i = 0; i < square.getDomain().size(); i++) {
+            if(square.getDomain().get(i) == val) {
+                square.getDomain().remove(i);
+                i--;
+            }
+        }
+
+        return square;
     }
 
     public int[] getValues(Sudoku.Square[] s) {
