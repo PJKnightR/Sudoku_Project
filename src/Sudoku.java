@@ -9,14 +9,19 @@ public class Sudoku {
     private Square board[][] = new Square[9][9];
 
     public Sudoku(String filePath, boolean withDomains) throws FileNotFoundException {
-        Scanner file = new Scanner(new File("../boards/"+filePath));
+        Scanner file = new Scanner(new File( "boards/"+filePath));
 
         if(withDomains) {
             for (int i = 0; i < 9; i++) {//row
-                Scanner scan = new Scanner(file.nextLine());
+                String nl = file.nextLine();
+
+                Scanner scan = new Scanner(nl);
                 scan.useDelimiter(",");
                 for (int j = 0; j < 9; j++) { //column
-                    String s = scan.next();
+                    String s;
+                    if(scan.hasNext()) {
+                        s = scan.next();
+                    } else { s = "";}
 
                     if(!s.equals("")){
                         int v = Character.getNumericValue( s.toCharArray()[0]);

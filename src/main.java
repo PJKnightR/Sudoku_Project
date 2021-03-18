@@ -9,6 +9,7 @@ public class main {
             //board.getBoard()[0][0].getRow();
         } catch (FileNotFoundException flarp) {
             System.out.println("Could not find indicated CSV file");
+            System.out.println(flarp.getMessage());
         }
 
         //create sudoku board
