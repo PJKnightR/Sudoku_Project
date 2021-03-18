@@ -23,6 +23,12 @@ public class Sudoku {
                         ArrayList<Integer> domain = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9));
 
                         board[i][j] = new Square(v, domain, i, j);
+                    } else {
+                        //0 is a magic number that means there is no value
+                        int v = 0;
+                        ArrayList<Integer> domain = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9));
+
+                        board[i][j] = new Square(v, domain, i, j);
                     }
 
                 }
