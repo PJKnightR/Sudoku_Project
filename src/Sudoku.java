@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Sudoku {
@@ -18,20 +20,40 @@ public class Sudoku {
 
                     if(!s.equals("")){
                         int v = Character.getNumericValue( s.toCharArray()[0]);
-                        //board[i][j] = new square(v, new int[] = [v]);
+                        ArrayList<Integer> domain = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9));
+
+                        board[i][j] = new Square(v, domain, i, j);
                     }
 
                 }
             }
         } else {
             for (int i = 0; i < 9; i++) {//row
+                Scanner scan = new Scanner(file.nextLine());
+                scan.useDelimiter(",");
                 for (int j = 0; j < 9; j++) { //column
+                    String s = scan.next();
 
+                    if(!s.equals("")) {
+                        int v = Character.getNumericValue(s.toCharArray()[0]);
+
+                        board[i][j] = new Square(v, i, j);
+                    }
                 }
             }
         }
 
 
+    }
+
+    //copy constructor
+    public Sudoku(Sudoku board){
+        Square in[][] = board.getBoard();
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                this.board[i][j] = in[i][j];
+            }
+        }
     }
 
     public Square[][] getBoard() {
@@ -43,15 +65,16 @@ public class Sudoku {
         private ArrayList<Integer> domain;
         private int row, column;
 
+
         //no domain
-        void Square(int val, int row, int column){
+        Square(int val, int row, int column){
             value = val;
             this.row = row;
             this.column = column;
         }
 
         //with domain
-        void Square(int val, ArrayList<Integer> dom, int row, int column){
+        Square(int val, ArrayList<Integer> dom, int row, int column){
             domain = dom;
             value = val;
             this.row = row;
