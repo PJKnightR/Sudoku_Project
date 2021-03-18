@@ -1,11 +1,11 @@
 import java.util.*;
 
-public class sudokuSolver {
+public class ACThreeSolver {
     public LinkedList<Sudoku.Square> squareQueue;
     public Sudoku curSudokuBoard, tempSudokuBoard;
     public Sudoku.Square tempSquare;
 
-    public sudokuSolver(Sudoku board) {
+    public ACThreeSolver(Sudoku board) {
         this.squareQueue = new LinkedList<Sudoku.Square>();
         this.curSudokuBoard = board;
     }
