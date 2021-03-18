@@ -66,6 +66,88 @@ public class Sudoku {
         return this.board;
     }
 
+    /***
+     * initializes all the domains in the board
+     * @return false if the board is invalid
+     */
+    public boolean initDomains(){
+        //iterate through the board
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                Square s = board[i][j];
+
+                //if this position has a value
+                if(s.getValue() != 0){
+                    //reduce it's dependencies
+                    //if a dependecy reduces to empty, return false
+                    if(!reduce(i,j)){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    /***
+     * reduce the domains of squares affected by the square at x,y
+     * @param x
+     * @param y
+     * @return false if any domain reduces to []
+     */
+    public boolean reduce(int x, int y){
+        Sudoku.Square s = board[x][y];
+        int val = s.getValue();
+
+        Sudoku.Square row[] = s.getRow();
+        Sudoku.Square col[] = s.getColumn();
+        Sudoku.Square bs[] = s.getSurroundingInSquare();
+
+        //update the row
+        for (Sudoku.Square t : row){
+            //if the domain contains our updated value, remove it
+            if (t.getDomain().contains(val)){
+                ArrayList<Integer> d = t.getDomain();
+
+                d.remove(val);
+                //if after removing, the domain is empty, return false
+                if (d.size() == 0){
+                    return false;
+                }
+            }
+        }
+
+        //update the column
+        for (Sudoku.Square t : col){
+            //if the domain contains our updated value, remove it
+            if (t.getDomain().contains(val)){
+                ArrayList<Integer> d = t.getDomain();
+
+                d.remove(val);
+                //if after removing, the domain is empty, return false
+                if (d.size() == 0){
+                    return false;
+                }
+            }
+        }
+
+        //update the square
+        for (Sudoku.Square t : bs) {
+            //if the domain contains our updated value, remove it
+            if (t.getDomain().contains(val)) {
+                ArrayList<Integer> d = t.getDomain();
+
+                d.remove(val);
+                //if after removing, the domain is empty, return false
+                if (d.size() == 0) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     public class Square{
         private int value;
         private ArrayList<Integer> domain;
