@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Sudoku {
     private Square board[][] = new Square[9][9];
 
-    public void Sudoku(String filePath, boolean withDomains) throws FileNotFoundException {
+    public Sudoku(String filePath, boolean withDomains) throws FileNotFoundException {
         Scanner file = new Scanner(new File("../boards/"+filePath));
 
         if(withDomains) {
@@ -48,8 +48,16 @@ public class Sudoku {
                 }
             }
         }
+    }
 
-
+    public void printSudokuBoard() {
+        for(int r = 0; r < 9; r++) {
+            for(int c = 0; c < 9; c++) {
+                System.out.print(" " + board[r][c].getValue() + " ");
+            }
+            System.out.print("\n");
+        }
+        System.out.print("\n");
     }
 
     //copy constructor
