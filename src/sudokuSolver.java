@@ -81,6 +81,8 @@ public class sudokuSolver {
                     return false;
                 }
 
+                //TO-DO: check if in queue
+
                 //add each neighbor to the queue in the row
                 Sudoku.Square[] addToQueue = currentSquare.getRow();
 

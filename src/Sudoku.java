@@ -59,8 +59,15 @@ public class Sudoku {
         for(int r = 0; r < 9; r++) {
             for(int c = 0; c < 9; c++) {
                 System.out.print(" " + board[r][c].getValue() + " ");
+                if (c == 2 || c == 5) {
+                    System.out.print(" | ");
+                }
             }
             System.out.print("\n");
+            if (r == 2 || r == 5) {
+
+                System.out.print(" -  -  -  |  -  -  -  |  -  -  -\n");
+            }
         }
         System.out.print("\n");
     }
@@ -200,9 +207,13 @@ public class Sudoku {
 
         public Square[] getRow() {
             Square squares[] = new Square[8];
+            int currentPos = 0;
 
             for(int i = 0; i < 9; i++) {
-                squares[i] = board[row][i];
+                if(i != column) {
+                    squares[currentPos] = board[row][i];
+                    currentPos++;
+                }
             }
 
             return squares;
@@ -210,9 +221,13 @@ public class Sudoku {
 
         public Square[] getColumn() {
             Square squares[] = new Square[8];
+            int currentPos = 0;
 
             for(int i = 0; i < 9; i++) {
-                squares[i] = board[i][column];
+                if(i != row) {
+                    squares[currentPos] = board[i][column];
+                    currentPos++;
+                }
             }
 
             return squares;
@@ -227,7 +242,7 @@ public class Sudoku {
                 //we've gone into another square
                 if (i == 2 || i == 5) {
                     i = -1;
-                } else {
+                } else if(i != row) {
                     squares[curPos] = board[i][column];
                     curPos++;
                 }
@@ -238,7 +253,7 @@ public class Sudoku {
                 //we've gone into another square
                 if (i == 3 || i == 6) {
                     i = 9;
-                } else {
+                } else if(i != row) {
                     squares[curPos] = board[i][column];
                     curPos++;
                 }
@@ -247,67 +262,68 @@ public class Sudoku {
             //go to the left columns if valid
             for(int i = column - 1; i > -1; i--) {
                 //we've gone into another square
-                if (i == 2 || i == 5) {
+                if ((i == 3 && column < 3) || (i == 6 && column < 6) || (i == 5 && column > 5)) {
                     i = -1;
                 } else {
                     squares[curPos] = board[row][i];
                     curPos++;
-                }
 
-                //check up and down in column
-                //start going up in current column if valid
-                for(int j = row - 1; j > -1; j--) {
-                    //we've gone into another square
-                    if (j == 2 || j == 5) {
-                        j = -1;
-                    } else {
-                        squares[curPos] = board[j][i];
-                        curPos++;
+                    //check up and down in column
+                    //start going up in current column if valid
+                    for(int j = row - 1; j > -1; j--) {
+                        //we've gone into another square
+                        if (j == 2 || j == 5) {
+                            j = -1;
+                        } else {
+                            squares[curPos] = board[j][i];
+                            curPos++;
+                        }
                     }
-                }
 
-                //going down in current column if valid
-                for(int j = row + 1; j < 9; j++) {
-                    //we've gone into another square
-                    if (j == 3 || j == 6) {
-                        j = 9;
-                    } else {
-                        squares[curPos] = board[j][i];
-                        curPos++;
+                    //going down in current column if valid
+                    for(int j = row + 1; j < 9; j++) {
+                        //we've gone into another square
+                        if (j == 3 || j == 6) {
+                            j = 9;
+                        } else {
+                            squares[curPos] = board[j][i];
+                            curPos++;
+                        }
                     }
                 }
             }
 
+
             //go to the right columns if valid
             for(int i = column + 1; i < 9; i++) {
                 //we've gone into another square
-                if (i == 3 || i == 6) {
+                if ((i == 3 && column < 3) || (i == 6 && column < 6) || (i == 5 && column > 5)) {
                     i = 9;
                 } else {
                     squares[curPos] = board[row][i];
                     curPos++;
-                }
 
-                //check up and down in column
-                //start going up in current column if valid
-                for(int j = row - 1; j > -1; j--) {
-                    //we've gone into another square
-                    if (j == 2 || j == 5) {
-                        j = -1;
-                    } else {
-                        squares[curPos] = board[j][i];
-                        curPos++;
+                    //check up and down in column
+                    //start going up in current column if valid
+                    for(int j = row - 1; j > -1; j--) {
+                        //we've gone into another square
+                        if (j == 2 || j == 5) {
+                            j = -1;
+                        } else {
+                            squares[curPos] = board[j][i];
+                            curPos++;
+                        }
                     }
-                }
 
-                //going down in current column if valid
-                for(int j = row + 1; j < 9; j++) {
-                    //we've gone into another square
-                    if (j == 3 || j == 6) {
-                        j = 9;
-                    } else {
-                        squares[curPos] = board[j][i];
-                        curPos++;
+                    //going down in current column if valid
+                    for(int j = row + 1; j < 9; j++) {
+                        //we've gone into another square
+                        if (j == 3 || j == 6) {
+                            j = 9;
+                        } else {
+                            squares[curPos] = board[j][i];
+                            curPos++;
+                        }
                     }
                 }
             }
