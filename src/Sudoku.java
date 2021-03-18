@@ -9,7 +9,7 @@ public class Sudoku {
     private Square board[][] = new Square[9][9];
 
     public void Sudoku(String filePath, boolean withDomains) throws FileNotFoundException {
-        Scanner file = new Scanner(new File(filePath));
+        Scanner file = new Scanner(new File("../boards/"+filePath));
 
         if(withDomains) {
             for (int i = 0; i < 9; i++) {//row
