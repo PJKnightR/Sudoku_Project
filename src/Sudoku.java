@@ -129,7 +129,8 @@ public class Sudoku {
             if (t.getDomain().contains(val)){
                 ArrayList<Integer> d = t.getDomain();
 
-                d.remove(val);
+
+                d.remove(d.indexOf(val));
                 //if after removing, the domain is empty, return false
                 if (d.size() == 0){
                     return false;
@@ -143,7 +144,7 @@ public class Sudoku {
             if (t.getDomain().contains(val)){
                 ArrayList<Integer> d = t.getDomain();
 
-                d.remove(val);
+                d.remove(d.indexOf(val));
                 //if after removing, the domain is empty, return false
                 if (d.size() == 0){
                     return false;
@@ -157,7 +158,7 @@ public class Sudoku {
             if (t.getDomain().contains(val)) {
                 ArrayList<Integer> d = t.getDomain();
 
-                d.remove(val);
+                d.remove(d.indexOf(val));
                 //if after removing, the domain is empty, return false
                 if (d.size() == 0) {
                     return false;
