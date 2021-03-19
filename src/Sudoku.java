@@ -133,7 +133,7 @@ public class Sudoku {
                 d.remove(d.indexOf(val));
                 //if after removing, the domain is empty, return false
                 if (d.size() == 0){
-                    System.out.println("could not reduce " +t.row+ "," +t.column);
+                    //System.out.println("could not reduce " +t.row+ "," +t.column);
                     return false;
                 }
             }
@@ -148,7 +148,7 @@ public class Sudoku {
                 d.remove(d.indexOf(val));
                 //if after removing, the domain is empty, return false
                 if (d.size() == 0){
-                    System.out.println("could not reduce " +t.row+ "," +t.column);
+                    //System.out.println("could not reduce " +t.row+ "," +t.column);
                     return false;
                 }
             }
@@ -163,7 +163,7 @@ public class Sudoku {
                 d.remove(d.indexOf(val));
                 //if after removing, the domain is empty, return false
                 if (d.size() == 0) {
-                    System.out.println("could not reduce " +t.row+ "," +t.column);
+                    //System.out.println("could not reduce " +t.row+ "," +t.column);
                     return false;
                 }
             }
