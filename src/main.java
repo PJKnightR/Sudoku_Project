@@ -31,11 +31,13 @@ public class main {
             end = System.nanoTime();
             System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
 
+            board2AC3.printSudokuBoard();
             start = System.nanoTime();
             AC3Solver = new ACThreeSolver(board2AC3);
             AC3Solver.AC3Guesser(board2AC3, 0, 0);
             end = System.nanoTime();
             System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+            AC3Solver.tempSudokuBoard.printSudokuBoard();
 
             start = System.nanoTime();
             AC3Solver = new ACThreeSolver(board3AC3);
