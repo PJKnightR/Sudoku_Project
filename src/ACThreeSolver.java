@@ -4,11 +4,20 @@ public class ACThreeSolver {
     public Sudoku curSudokuBoard, tempSudokuBoard;
     public Sudoku.Square tempSquare;
 
+    /**
+     * Initializes the solver
+     * @param board the board being solved
+     */
     public ACThreeSolver(Sudoku board) {
         this.curSudokuBoard = board;
     }
 
-    //constrain all values, then start plugging in and perform AC3 again
+    /**
+     * Performs AC-3 on a Sudoku board
+     * @param board the board having AC-3 performed on it
+     * @param startSquare the square the algorithm starts with
+     * @return whether AC-3 was successful or not
+     */
     public boolean ACThree(Sudoku board, Sudoku.Square startSquare) {
         //Iterate through cube entries
         LinkedList<Sudoku.Square> squareQueue = new LinkedList<Sudoku.Square>();
@@ -86,6 +95,13 @@ public class ACThreeSolver {
         return true;
     }
 
+    /**
+     * Attempts to guess values in the board to try and solve it if AC3 cannot by itself
+     * @param board current board
+     * @param curRow current row
+     * @param curColumn current column
+     * @return whether the guessers was successful
+     */
     public boolean AC3Guesser(Sudoku board, int curRow, int curColumn) {
         if (!ACThree(board, board.getBoard()[curRow][curColumn])) {
             return false;
@@ -126,30 +142,20 @@ public class ACThreeSolver {
                                 temp.getBoard()[r][c].setDomain(oldDomain);
                             }
                         }
-                        //if forward checking is invalid try the next value in the domain
+
                     }
                 }
             }
         }
 
-        /*Sudoku b = new Sudoku(board);
-
-        for (int guess = 1; guess < 10; guess++) {
-            b.getBoard()[curRow][curColumn].setValue(guess);
-            //ACThree(b, b.getBoard()[curRow][curColumn]);
-
-            if(ACThree(b, b.getBoard()[curRow][curColumn])) {
-                board.getBoard()[curRow][curColumn].setValue(guess);
-                return true;
-            }
-
-            board.getBoard()[curRow][curColumn].setValue(0);
-        }*/
-
-
         return true;
     }
 
+    /**
+     * Revises the domain of a square
+     * @param square the square being revised
+     * @return whether it was successful or not
+     */
     public boolean reviseConstraints(Sudoku.Square square) {
         boolean revised = false;
         ArrayList <Integer> valArrayOriginal = square.getDomain();
@@ -201,6 +207,12 @@ public class ACThreeSolver {
         return revised;
     }
 
+    /**
+     * Removes a value from a squares domain
+     * @param square the square who's domain is being altered
+     * @param val the value being removed
+     * @return the square with a revised domain
+     */
     public Sudoku.Square removeFromDomain(Sudoku.Square square, int val) {
         for (int i = 0; i < square.getDomain().size(); i++) {
             if(square.getDomain().get(i) == val) {
@@ -211,6 +223,11 @@ public class ACThreeSolver {
         return square;
     }
 
+    /**
+     * Gets the values of an array of squares
+     * @param s the array of squares
+     * @return an array of the square's values
+     */
     public int[] getValues(Sudoku.Square[] s) {
         int[] values = new int[s.length];
 
