@@ -23,7 +23,7 @@ public class Sudoku {
                         s = scan.next();
                     } else { s = "";}
 
-                    if(!s.equals("")){
+                    if(!s.equals("0")){
                         int v = Character.getNumericValue( s.toCharArray()[0]);
                         ArrayList<Integer> domain = new ArrayList<Integer>(Arrays.asList(0));
 
@@ -126,13 +126,14 @@ public class Sudoku {
         //update the row
         for (Sudoku.Square t : row){
             //if the domain contains our updated value, remove it
-            if (t.getDomain().contains(val)){
+            if (t.getDomain().contains(val) && t.value ==0){
                 ArrayList<Integer> d = t.getDomain();
 
 
                 d.remove(d.indexOf(val));
                 //if after removing, the domain is empty, return false
                 if (d.size() == 0){
+                    System.out.println("could not reduce " +t.row+ "," +t.column);
                     return false;
                 }
             }
@@ -141,12 +142,13 @@ public class Sudoku {
         //update the column
         for (Sudoku.Square t : col){
             //if the domain contains our updated value, remove it
-            if (t.getDomain().contains(val)){
+            if (t.getDomain().contains(val) && t.value ==0){
                 ArrayList<Integer> d = t.getDomain();
 
                 d.remove(d.indexOf(val));
                 //if after removing, the domain is empty, return false
                 if (d.size() == 0){
+                    System.out.println("could not reduce " +t.row+ "," +t.column);
                     return false;
                 }
             }
@@ -155,12 +157,13 @@ public class Sudoku {
         //update the square
         for (Sudoku.Square t : bs) {
             //if the domain contains our updated value, remove it
-            if (t.getDomain().contains(val)) {
+            if (t.getDomain().contains(val) && t.value ==0) {
                 ArrayList<Integer> d = t.getDomain();
 
                 d.remove(d.indexOf(val));
                 //if after removing, the domain is empty, return false
                 if (d.size() == 0) {
+                    System.out.println("could not reduce " +t.row+ "," +t.column);
                     return false;
                 }
             }
