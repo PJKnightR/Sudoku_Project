@@ -58,6 +58,16 @@ public class main {
             System.exit(0);
         }
 
+        /*advanced dfs
+        try {
+            Sudoku board = new Sudoku("SudokuMaker.csv", true);
+            AdvancedDFS dfs = new AdvancedDFS(board);
+            Sudoku fin = dfs.solve(board);
+            fin.printSudokuBoard();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }*/
 
     }
 

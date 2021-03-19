@@ -50,44 +50,6 @@ public class ForwardCheckingSolver {
     }
 
 
-    /***
-     * check if a potential value is valid for a specified position
-     * @param x x coordinate of the square to check
-     * @param y y coordiante of the square to check
-     * @param testVal the value to check
-     * @return true if value is valid option
-     */
-    private boolean isValid(int x, int y, int testVal){
-        Sudoku.Square s = board.getBoard()[x][y];
-
-        Sudoku.Square row[] = s.getRow();
-        Sudoku.Square col[] = s.getColumn();
-        Sudoku.Square bs[] = s.getSurroundingInSquare();
-
-        for (Sudoku.Square t : row){
-            //if something else in the row already has that value, its not a valid option
-            if (t.getValue() == testVal){
-                return false;
-            }
-        }
-
-        for (Sudoku.Square t : col){
-            //if something else in the column already has that value, its not a valid option
-            if (t.getValue() == testVal){
-                return false;
-            }
-        }
-
-        for (Sudoku.Square t : bs){
-            //if something else in the surrounding square already has that value, its not a valid option
-            if (t.getValue() == testVal){
-                return false;
-            }
-        }
-
-        //if none of the above find it to be invalid, then its valid
-        return true;
-    }
 
 
 }
