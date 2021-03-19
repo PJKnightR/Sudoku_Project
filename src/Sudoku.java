@@ -25,7 +25,7 @@ public class Sudoku {
 
                     if(!s.equals("")){
                         int v = Character.getNumericValue( s.toCharArray()[0]);
-                        ArrayList<Integer> domain = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9));
+                        ArrayList<Integer> domain = new ArrayList<Integer>(Arrays.asList(0));
 
                         board[i][j] = new Square(v, domain, i, j);
                     } else {

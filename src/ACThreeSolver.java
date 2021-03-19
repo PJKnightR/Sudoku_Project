@@ -10,11 +10,10 @@ public class ACThreeSolver {
 
     public boolean performAC3(Sudoku board, int curRow, int curColumn) {
         //find first entry without a set value, ignored if there is an assigned value
-        while (board.getBoard()[curRow][curColumn].getValue() != 0) {
+        while (board.getBoard()[curRow][curColumn].getValue() != 0 || board.getBoard()[curRow][curColumn].getDomain().get(0) == 0) {
             //the entry only had one value in its domain. Thus, that is the only value it can have
-            if (board.getBoard()[curRow][curColumn].getDomain().size() == 1) {
-                board.getBoard()[curRow][curColumn].setValue(board.getBoard()[curRow][curColumn].getDomain().get(0));
-            } else {
+
+            if (board.getBoard()[curRow][curColumn].getValue() != 0) {
                 if(curColumn < 8) {
                     curColumn++;
                 } else {
@@ -38,7 +37,6 @@ public class ACThreeSolver {
                 if (x == currentGuess) {
                     inDomain = true;
                 }
-                System.out.println("Test1");
             }
 
             if (inDomain) {
@@ -62,6 +60,10 @@ public class ACThreeSolver {
                     //continue to next node with recursive call
                     if (!performAC3(tempSudokuBoard, curRow, curColumn)) {
                         //we failed and have to reset some values
+                        if (board.getBoard()[curRow][curColumn].getDomain().get(0) != 0) {
+                            board.getBoard()[curRow][curColumn].setValue(0);
+                        }
+                        board.printSudokuBoard();
                         if (curColumn == 0) {
                             curColumn = 8;
                             curRow--;
@@ -86,6 +88,11 @@ public class ACThreeSolver {
 
         while (!squareQueue.isEmpty()) {
             Sudoku.Square currentSquare = squareQueue.pop();
+
+            //can be empty
+            while (currentSquare.getDomain().get(0) == 0) {
+                currentSquare = squareQueue.pop();
+            }
 
             /*System.out.print("\nCurrent Queue: " + currentSquare.row + " " + currentSquare.column + " (Current) ");
             for(Sudoku.Square x : squareQueue) {
@@ -192,6 +199,10 @@ public class ACThreeSolver {
             revised = true;
         }
 
+        if(square.getDomain().size() == 1) {
+            square.setValue(square.getDomain().get(0));
+        }
+
         tempSquare = square;
         return revised;
     }
@@ -203,7 +214,6 @@ public class ACThreeSolver {
                 i--;
             }
         }
-
         return square;
     }
 
