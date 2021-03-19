@@ -10,17 +10,70 @@ public class main {
         String in = scan.nextLine();
          */
 
-        /*
+
         try {
-            Sudoku board = new Sudoku("SudokuMaker.csv", true);
+            Sudoku board1AC3 = new Sudoku("test1.csv", true);
+            Sudoku board2AC3 = new Sudoku("test2.csv", true);
+            Sudoku board3AC3 = new Sudoku("test3.csv", true);
+            Sudoku board4AC3 = new Sudoku("test4.csv", true);
+            Sudoku board5AC3 = new Sudoku("test5.csv", true);
+            Sudoku board6AC3 = new Sudoku("worldsHardest.csv", true);
+
+            long start;
+            long end;
+
+            ACThreeSolver AC3Solver;
+            Sudoku fin;
+
+            start = System.nanoTime();
+            AC3Solver = new ACThreeSolver(board1AC3);
+            AC3Solver.ACThree(board1AC3, board1AC3.getBoard()[0][0]);
+            end = System.nanoTime();
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+
+            start = System.nanoTime();
+            AC3Solver = new ACThreeSolver(board2AC3);
+            AC3Solver.AC3Guesser(board2AC3, 0, 0);
+            end = System.nanoTime();
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+
+            start = System.nanoTime();
+            AC3Solver = new ACThreeSolver(board3AC3);
+            AC3Solver.AC3Guesser(board3AC3, 0, 0);
+            end = System.nanoTime();
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+
+            start = System.nanoTime();
+            AC3Solver = new ACThreeSolver(board4AC3);
+            AC3Solver.AC3Guesser(board4AC3, 0, 0);
+            end = System.nanoTime();
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+
+            start = System.nanoTime();
+            AC3Solver = new ACThreeSolver(board5AC3);
+            AC3Solver.ACThree(board5AC3, board5AC3.getBoard()[0][0]);
+            end = System.nanoTime();
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+
+            start = System.nanoTime();
+            AC3Solver = new ACThreeSolver(board6AC3);
+            AC3Solver.ACThree(board6AC3, board6AC3.getBoard()[0][0]);
+            end = System.nanoTime();
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+
+
+            System.out.println("\n");
+
+            /*Sudoku board = new Sudoku("test3.csv", true);
 
             System.out.println("Initial Board:");
             board.printSudokuBoard();
 
             ACThreeSolver solver = new ACThreeSolver(board);
-            solver.ACThree(board, board.getBoard()[0][0]);
-            System.out.println("Solvable Puzzle by AC3: " + solver.performAC3(board, 0, 0));
-
+            //solver.ACThree(board, board.getBoard()[0][0]);
+            //System.out.println("Solvable Puzzle by AC3: " + solver.performAC3(board, 0, 0));
+            System.out.println("Solvable Puzzle by AC3: " + solver.AC3Guesser(board, 0, 0));
+            solver.tempSudokuBoard.printSudokuBoard();
 
             Sudoku boardHard = new Sudoku("SudokuMaker (Hard).csv", true);
 
@@ -28,15 +81,17 @@ public class main {
             boardHard.printSudokuBoard();
 
             ACThreeSolver solverHard = new ACThreeSolver(boardHard);
-            solverHard.ACThree(boardHard, boardHard.getBoard()[0][0]);
-            System.out.println("Solvable Puzzle by AC3: " + solverHard.performAC3(board, 0, 0));
-
+            //solverHard.ACThree(boardHard, boardHard.getBoard()[0][0]);
+            //System.out.println("Solvable Puzzle by AC3: " + solverHard.performAC3(boardHard, 0, 0));
+            //System.out.println("Solvable Puzzle by AC3: " + solverHard.ACThree(boardHard, boardHard.getBoard()[0][0]));
+            System.out.println("Solvable Puzzle by AC3: " + solverHard.AC3Guesser(boardHard, 0, 0));
+            solverHard.tempSudokuBoard.printSudokuBoard();*/
         } catch (FileNotFoundException flarp) {
             System.out.println("Could not find indicated CSV file");
             System.out.println(flarp.getMessage());
         }
 
-         */
+
 
         //create sudoku board
         //create solver
@@ -113,7 +168,7 @@ public class main {
         }
 
         /*advanced dfs
-        try {
+        /*try {
             Sudoku board = new Sudoku("SudokuMaker.csv", true);
             AdvancedDFS dfs = new AdvancedDFS(board);
             Sudoku fin = dfs.solve(board);
