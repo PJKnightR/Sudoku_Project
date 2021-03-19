@@ -10,6 +10,7 @@ public class main {
         String in = scan.nextLine();
          */
 
+        /*
         try {
             Sudoku board = new Sudoku("SudokuMaker.csv", true);
 
@@ -35,6 +36,8 @@ public class main {
             System.out.println(flarp.getMessage());
         }
 
+         */
+
         //create sudoku board
         //create solver
 
@@ -59,6 +62,8 @@ public class main {
             Sudoku board2 = new Sudoku("test2.csv", true);
             Sudoku board3 = new Sudoku("test3.csv", true);
             Sudoku board4 = new Sudoku("test4.csv", true);
+            Sudoku board5 = new Sudoku("test5.csv", true);
+            Sudoku board6 = new Sudoku("worldsHardest.csv", true);
 
             long start;
             long end;
@@ -70,25 +75,37 @@ public class main {
             fw = new ForwardCheckingSolver(board1);
             fin = fw.solve(board1);
             end = System.nanoTime();
-            System.out.println("Execution time is: " + (end - start) + " nanoseconds");
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
 
             start = System.nanoTime();
             fw = new ForwardCheckingSolver(board2);
             fin = fw.solve(board2);
             end = System.nanoTime();
-            System.out.println("Execution time is: " + (end - start) + " nanoseconds");
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
 
             start = System.nanoTime();
             fw = new ForwardCheckingSolver(board3);
             fin = fw.solve(board3);
             end = System.nanoTime();
-            System.out.println("Execution time is: " + (end - start) + " nanoseconds");
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
 
             start = System.nanoTime();
             fw= new ForwardCheckingSolver(board4);
             fin = fw.solve(board4);
             end = System.nanoTime();
-            System.out.println("Execution time is: " + (end - start) + " nanoseconds");
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+
+            start = System.nanoTime();
+            fw= new ForwardCheckingSolver(board5);
+            fin = fw.solve(board5);
+            end = System.nanoTime();
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+
+            start = System.nanoTime();
+            fw= new ForwardCheckingSolver(board6);
+            fin = fw.solve(board6);
+            end = System.nanoTime();
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
