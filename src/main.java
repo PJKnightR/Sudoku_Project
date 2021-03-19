@@ -28,6 +28,14 @@ public class main {
                 }
             }
             System.out.print("\n");
+
+            ACThreeSolver solver = new ACThreeSolver(board);
+            solver.ACThree(board, board.getBoard()[0][0]);
+            System.out.println(solver.performAC3(board, 0, 0));
+
+            //solver.ACThree(board);
+            //solver.tempSudokuBoard.getBoard()[0][3].printDomain();
+
         } catch (FileNotFoundException flarp) {
             System.out.println("Could not find indicated CSV file");
             System.out.println(flarp.getMessage());

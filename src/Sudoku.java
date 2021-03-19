@@ -171,7 +171,7 @@ public class Sudoku {
     public class Square{
         private int value;
         private ArrayList<Integer> domain;
-        private int row, column;
+        public int row, column;
 
 
         //no domain
@@ -203,6 +203,13 @@ public class Sudoku {
 
         public void setDomain(ArrayList<Integer> d) {
             this.domain = d;
+        }
+
+        public void printDomain() {
+            System.out.print("\n");
+            for (int x : domain) {
+                System.out.print(x + ", ");
+            }
         }
 
         public Square[] getRow() {
@@ -262,7 +269,7 @@ public class Sudoku {
             //go to the left columns if valid
             for(int i = column - 1; i > -1; i--) {
                 //we've gone into another square
-                if ((i == 3 && column < 3) || (i == 6 && column < 6) || (i == 5 && column > 5)) {
+                if (i == 2 || i == 5) {
                     i = -1;
                 } else {
                     squares[curPos] = board[row][i];
@@ -297,7 +304,7 @@ public class Sudoku {
             //go to the right columns if valid
             for(int i = column + 1; i < 9; i++) {
                 //we've gone into another square
-                if ((i == 3 && column < 3) || (i == 6 && column < 6) || (i == 5 && column > 5)) {
+                if (i == 3 || i == 6) {
                     i = 9;
                 } else {
                     squares[curPos] = board[row][i];
