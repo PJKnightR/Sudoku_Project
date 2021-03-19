@@ -2,6 +2,7 @@ import java.io.FileNotFoundException;
 
 public class main {
     public static void main(String[] args) {
+
         try {
             Sudoku board = new Sudoku("SudokuMaker.csv", true);
 
@@ -46,5 +47,18 @@ public class main {
 
         //solve most constrained
         //solve simple backtrack
+
+        try {
+            Sudoku board = new Sudoku("SudokuMaker.csv", true);
+            ForwardCheckingSolver fw = new ForwardCheckingSolver(board);
+            Sudoku fin = fw.solve(board);
+            fin.printSudokuBoard();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+
+
     }
+
 }
