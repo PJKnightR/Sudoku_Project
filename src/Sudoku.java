@@ -351,9 +351,4 @@ public class Sudoku {
             return squares;
         }
     }
-    //get row
-    //get column
-    //get square
-
-
 }

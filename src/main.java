@@ -66,28 +66,6 @@ public class main {
 
             System.out.println("\n");
 
-            /*Sudoku board = new Sudoku("test3.csv", true);
-
-            System.out.println("Initial Board:");
-            board.printSudokuBoard();
-
-            ACThreeSolver solver = new ACThreeSolver(board);
-            //solver.ACThree(board, board.getBoard()[0][0]);
-            //System.out.println("Solvable Puzzle by AC3: " + solver.performAC3(board, 0, 0));
-            System.out.println("Solvable Puzzle by AC3: " + solver.AC3Guesser(board, 0, 0));
-            solver.tempSudokuBoard.printSudokuBoard();
-
-            Sudoku boardHard = new Sudoku("SudokuMaker (Hard).csv", true);
-
-            System.out.println("Hard Board \nInitial Board:");
-            boardHard.printSudokuBoard();
-
-            ACThreeSolver solverHard = new ACThreeSolver(boardHard);
-            //solverHard.ACThree(boardHard, boardHard.getBoard()[0][0]);
-            //System.out.println("Solvable Puzzle by AC3: " + solverHard.performAC3(boardHard, 0, 0));
-            //System.out.println("Solvable Puzzle by AC3: " + solverHard.ACThree(boardHard, boardHard.getBoard()[0][0]));
-            System.out.println("Solvable Puzzle by AC3: " + solverHard.AC3Guesser(boardHard, 0, 0));
-            solverHard.tempSudokuBoard.printSudokuBoard();*/
         } catch (FileNotFoundException flarp) {
             System.out.println("Could not find indicated CSV file");
             System.out.println(flarp.getMessage());
