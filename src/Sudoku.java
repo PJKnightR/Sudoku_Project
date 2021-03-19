@@ -77,7 +77,7 @@ public class Sudoku {
         Square in[][] = board.getBoard();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                this.board[i][j] = in[i][j];
+                this.board[i][j] = new Square(in[i][j]);
             }
         }
     }
@@ -168,6 +168,7 @@ public class Sudoku {
         return true;
     }
 
+
     public class Square{
         private int value;
         private ArrayList<Integer> domain;
@@ -187,6 +188,14 @@ public class Sudoku {
             value = val;
             this.row = row;
             this.column = column;
+        }
+
+        //copy
+        Square(Square s){
+            value = s.value;
+            domain = new ArrayList<Integer>(s.domain);
+            row = s.row;
+            column = s.column;
         }
 
         public int getValue() {
