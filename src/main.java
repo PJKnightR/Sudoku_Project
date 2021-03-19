@@ -12,6 +12,8 @@ public class main {
 
 
         try {
+            System.out.println("AC-3 algorithim");
+
             Sudoku board1AC3 = new Sudoku("test1.csv", true);
             Sudoku board2AC3 = new Sudoku("test2.csv", true);
             Sudoku board3AC3 = new Sudoku("test3.csv", true);
@@ -112,6 +114,7 @@ public class main {
             fin.printSudokuBoard();
             */
 
+            System.out.println("Forward checking");
 
             Sudoku board1 = new Sudoku("test1.csv", true);
             Sudoku board2 = new Sudoku("test2.csv", true);
