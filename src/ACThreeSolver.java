@@ -10,7 +10,8 @@ public class ACThreeSolver {
 
     public boolean performAC3(Sudoku board, int curRow, int curColumn) {
         //find first entry without a set value, ignored if there is an assigned value
-        while (board.getBoard()[curRow][curColumn].getValue() != 0 || board.getBoard()[curRow][curColumn].getDomain().get(0) == 0) {
+
+        while (board.getBoard()[curRow][curColumn].getValue() != 0) {
             //the entry only had one value in its domain. Thus, that is the only value it can have
 
             if (board.getBoard()[curRow][curColumn].getValue() != 0) {
@@ -22,13 +23,12 @@ public class ACThreeSolver {
                 }
 
                 if(curRow > 8) { //we succeeded, every node has been given a valid value
+                    System.out.println("Final Board:");
                     board.printSudokuBoard();
                     return true;
                 }
             }
         }
-
-        System.out.println("Current Value: " + curRow + " " + curColumn);
 
         //loop through plugging each value into the first entry
         for(int currentGuess = 1; currentGuess < 10; currentGuess++) {
@@ -40,7 +40,6 @@ public class ACThreeSolver {
             }
 
             if (inDomain) {
-                System.out.println("Try " + currentGuess + " on " + curRow + " " + curColumn);
                 board.getBoard()[curRow][curColumn].setValue(currentGuess);
 
                 //if this node succeeds, we continue to the next
@@ -53,6 +52,7 @@ public class ACThreeSolver {
                     }
 
                     if(curRow > 8) { //we succeeded, every node has been given a valid value
+                        System.out.println("Final Board:");
                         board.printSudokuBoard();
                         return true;
                     }
@@ -60,10 +60,14 @@ public class ACThreeSolver {
                     //continue to next node with recursive call
                     if (!performAC3(tempSudokuBoard, curRow, curColumn)) {
                         //we failed and have to reset some values
-                        if (board.getBoard()[curRow][curColumn].getDomain().get(0) != 0) {
-                            board.getBoard()[curRow][curColumn].setValue(0);
+                        if (board.getBoard()[curRow][curColumn].getDomain().size() == 0) {
+                            return false;
+                        } else {
+                            if (board.getBoard()[curRow][curColumn].getDomain().get(0) != 0) {
+                                board.getBoard()[curRow][curColumn].setValue(0);
+                            }
                         }
-                        board.printSudokuBoard();
+
                         if (curColumn == 0) {
                             curColumn = 8;
                             curRow--;
@@ -74,6 +78,11 @@ public class ACThreeSolver {
                 }
             }
 
+        }
+
+        if (curColumn == 0 && curRow == 0) {
+            System.out.println("Final Board:");
+            board.printSudokuBoard();
         }
 
         return false; //we failed to find a valid number based on remaining Domain, this path was not valid
@@ -89,15 +98,17 @@ public class ACThreeSolver {
         while (!squareQueue.isEmpty()) {
             Sudoku.Square currentSquare = squareQueue.pop();
 
-            //can be empty
-            while (currentSquare.getDomain().get(0) == 0) {
-                currentSquare = squareQueue.pop();
+            boolean goodEntry = false;
+            while (!squareQueue.isEmpty() && !goodEntry) {
+                if(currentSquare.getDomain().size() == 0) {
+                    return false;
+                }
+                if(currentSquare.getDomain().get(0) == 0) {
+                    currentSquare = squareQueue.pop();
+                } else {
+                    goodEntry = true;
+                }
             }
-
-            /*System.out.print("\nCurrent Queue: " + currentSquare.row + " " + currentSquare.column + " (Current) ");
-            for(Sudoku.Square x : squareQueue) {
-                System.out.print(x.row + " " + x.column + ", ");
-            }*/
 
             if (reviseConstraints(currentSquare)) {
                 currentSquare = tempSquare; //has new constraints
