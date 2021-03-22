@@ -205,15 +205,11 @@ public class main {
             Sudoku board = new Sudoku("test1.csv", true);
             AdvancedDFS dfs = new AdvancedDFS(board);
             Sudoku fin = dfs.solve(board);
-            long end = System.currentTimeMillis();
             fin.printSudokuBoard();
-            System.out.println("time: " + (end - start));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.exit(0);
-        }
-
-         */
+        }*/
 
     }
 
