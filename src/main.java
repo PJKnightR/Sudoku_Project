@@ -33,13 +33,11 @@ public class main {
             end = System.nanoTime();
             System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
 
-            board2AC3.printSudokuBoard();
             start = System.nanoTime();
             AC3Solver = new ACThreeSolver(board2AC3);
             AC3Solver.AC3Guesser(board2AC3, 0, 0);
             end = System.nanoTime();
             System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
-            AC3Solver.tempSudokuBoard.printSudokuBoard();
 
             start = System.nanoTime();
             AC3Solver = new ACThreeSolver(board3AC3);
@@ -81,18 +79,8 @@ public class main {
         //solve most constrained
         //solve simple backtrack
 
-        try {/*
-            Sudoku board2 = new Sudoku("test1.csv", true);
-            board2.printSudokuBoard();
 
-            ForwardCheckingSolver fw;
-            Sudoku fin;
-
-            fw = new ForwardCheckingSolver(board2);
-            fin = fw.solve(board2);
-
-            fin.printSudokuBoard();
-            */
+        try {
 
             System.out.println("Forward checking");
 
@@ -145,21 +133,87 @@ public class main {
             end = System.nanoTime();
             System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
 
+            System.out.println("\n");
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.exit(1);
         }
 
-        /*advanced dfs
-        /*try {
-            Sudoku board = new Sudoku("SudokuMaker.csv", true);
+        try {
+
+            System.out.println("Depth first search");
+
+            Sudoku board1 = new Sudoku("test1.csv", true);
+            Sudoku board2 = new Sudoku("test2.csv", true);
+            Sudoku board3 = new Sudoku("test3.csv", true);
+            Sudoku board4 = new Sudoku("test4.csv", true);
+            Sudoku board5 = new Sudoku("test5.csv", true);
+            Sudoku board6 = new Sudoku("worldsHardest.csv", true);
+
+            long start;
+            long end;
+
+            AdvancedDFS fw;
+            Sudoku fin;
+
+            start = System.nanoTime();
+            fw = new AdvancedDFS(board1);
+            fin = fw.solve(board1);
+            end = System.nanoTime();
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+
+            start = System.nanoTime();
+            fw = new AdvancedDFS(board2);
+            fin = fw.solve(board2);
+            end = System.nanoTime();
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+
+            start = System.nanoTime();
+            fw = new AdvancedDFS(board3);
+            fin = fw.solve(board3);
+            end = System.nanoTime();
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+
+            start = System.nanoTime();
+            fw = new AdvancedDFS(board4);
+            fin = fw.solve(board4);
+            end = System.nanoTime();
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+
+            start = System.nanoTime();
+            fw = new AdvancedDFS(board5);
+            fin = fw.solve(board5);
+            end = System.nanoTime();
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+
+            start = System.nanoTime();
+            fw = new AdvancedDFS(board6);
+            fin = fw.solve(board6);
+            end = System.nanoTime();
+            System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        //advanced dfs
+        /*
+        try {
+            long start = System.currentTimeMillis();
+            Sudoku board = new Sudoku("test1.csv", true);
             AdvancedDFS dfs = new AdvancedDFS(board);
             Sudoku fin = dfs.solve(board);
+            long end = System.currentTimeMillis();
             fin.printSudokuBoard();
+            System.out.println("time: " + (end - start));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.exit(0);
-        }*/
+        }
+
+         */
 
     }
 
