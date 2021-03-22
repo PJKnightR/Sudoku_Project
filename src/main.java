@@ -51,6 +51,9 @@ public class main {
                 System.out.println("Forward Checking and DFS solution:");
                 fwFin.printSudokuBoard();
 
+                System.out.println("AC3 solution:");
+                AC3Solver.tempSudokuBoard.printSudokuBoard();
+
 
             } catch (Exception e) {
                 System.err.println(e.getMessage());
