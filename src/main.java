@@ -4,12 +4,59 @@ import java.util.Scanner;
 public class main {
     public static void main(String[] args) {
 
-        /*
-        System.out.println("Please enter the filename you would like to test:");
-        Scanner scan = new Scanner(System.in);
-        String in = scan.nextLine();
-         */
+        while (true) {
+            System.out.println("Please enter the filename you would like to test: ");
+            Scanner scan = new Scanner(System.in);
+            String in = scan.nextLine();
 
+            if(in.equals("exit")){
+                System.exit(0);
+            }
+
+            try {
+                Sudoku boardAC = new Sudoku(in, true);
+                Sudoku boardFW = new Sudoku(in, true);
+                Sudoku boardDFS = new Sudoku(in, true);
+
+                long start;
+                long end;
+
+                ACThreeSolver AC3Solver;
+                ForwardCheckingSolver fw;
+                AdvancedDFS dfs;
+
+                Sudoku fwFin;
+
+                System.out.println("Initial Board:");
+                boardAC.printSudokuBoard();
+
+                start = System.nanoTime();
+                AC3Solver = new ACThreeSolver(boardAC);
+                AC3Solver.ACThree(boardAC, boardAC.getBoard()[0][0]);
+                end = System.nanoTime();
+                System.out.println("AC-3 Execution time is: " + (end - start) / 1000000.0 + " miliseconds");
+
+                start = System.nanoTime();
+                fw = new ForwardCheckingSolver(boardFW);
+                fwFin = fw.solve(boardFW);
+                end = System.nanoTime();
+                System.out.println("Forward Checking Execution time is: " + (end - start) / 1000000.0 + " miliseconds");
+
+                start = System.nanoTime();
+                dfs = new AdvancedDFS(boardFW);
+                dfs.solve(boardFW);
+                end = System.nanoTime();
+                System.out.println("Depth First Search Execution time is: " + (end - start) / 1000000.0 + " miliseconds\n");
+
+                System.out.println("Forward Checking and DFS solution:");
+                fwFin.printSudokuBoard();
+
+
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
+        /*
 
         try {
             System.out.println("AC-3 algorithim");
