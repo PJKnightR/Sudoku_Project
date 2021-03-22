@@ -58,7 +58,9 @@ public class Sudoku {
     public void printSudokuBoard() {
         for(int r = 0; r < 9; r++) {
             for(int c = 0; c < 9; c++) {
-                System.out.print(" " + board[r][c].getValue() + " ");
+                String val = "" + board[r][c].getValue();
+                if(val.equals("0")) val = " ";
+                System.out.print(" " + val + " ");
                 if (c == 2 || c == 5) {
                     System.out.print(" | ");
                 }
