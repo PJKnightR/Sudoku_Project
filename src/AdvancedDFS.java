@@ -21,7 +21,6 @@ public class AdvancedDFS {
                         if(isValid(i, j, g, state)){
                             Sudoku temp = new Sudoku(state);
                             temp.getBoard()[i][j].setValue(g);
-                            System.out.println("Solving Row " + i);
                             Sudoku solution = solve(temp);
                             if (solution != null){
                                 return solution;
