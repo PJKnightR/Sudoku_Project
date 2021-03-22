@@ -27,12 +27,16 @@ public class main {
             ACThreeSolver AC3Solver;
             Sudoku fin;
 
+            System.out.println("Board with guessing required");
+            board1AC3.printSudokuBoard();
             start = System.nanoTime();
             AC3Solver = new ACThreeSolver(board1AC3);
             AC3Solver.ACThree(board1AC3, board1AC3.getBoard()[0][0]);
             end = System.nanoTime();
             System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+            AC3Solver.tempSudokuBoard.printSudokuBoard();
 
+            System.out.println("Board without guessing required");
             board2AC3.printSudokuBoard();
             start = System.nanoTime();
             AC3Solver = new ACThreeSolver(board2AC3);
@@ -109,11 +113,13 @@ public class main {
             ForwardCheckingSolver fw;
             Sudoku fin;
 
+            board1.printSudokuBoard();
             start = System.nanoTime();
             fw = new ForwardCheckingSolver(board1);
             fin = fw.solve(board1);
             end = System.nanoTime();
             System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+            fin.printSudokuBoard();
 
             start = System.nanoTime();
             fw = new ForwardCheckingSolver(board2);
@@ -121,11 +127,13 @@ public class main {
             end = System.nanoTime();
             System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
 
+            board3.printSudokuBoard();
             start = System.nanoTime();
             fw = new ForwardCheckingSolver(board3);
             fin = fw.solve(board3);
             end = System.nanoTime();
             System.out.println("Execution time is: " + (end - start)/1000000.0 + " miliseconds");
+            fin.printSudokuBoard();
 
             start = System.nanoTime();
             fw= new ForwardCheckingSolver(board4);
